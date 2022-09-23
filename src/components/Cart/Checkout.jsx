@@ -1,4 +1,5 @@
 import React from "react";
+import { Country, State } from "country-state-city";
 
 function Checkout() {
   return (
@@ -7,7 +8,7 @@ function Checkout() {
         <h1>Checkout Details</h1>
         <form>
           <div>
-            <label>H.No.</label>
+            <label>Address</label>
             <input type="text" placeholder="Enter your address" />
           </div>
           <div>
@@ -15,17 +16,28 @@ function Checkout() {
             <input type="text" placeholder="Enter City" />
           </div>
           <div>
+            {/* Select country and state by using country-state-city pakage and map in select tag */}
             <label>Country</label>
             <select>
               <option value="">Country</option>
-              <option value="">India</option>
+              {Country &&
+                Country.getAllCountries().map((i) => (
+                  <option value={i.isoCode} key={i.isoCode}>
+                    {i.name}
+                  </option>
+                ))}
             </select>
           </div>
           <div>
             <label>State</label>
             <select>
               <option value="">State</option>
-              <option value="">Maharashtra</option>
+              {State &&
+                State.getStatesOfCountry("IN").map((i) => (
+                  <option value={i.isoCode} key={i.isoCode}>
+                    {i.name}
+                  </option>
+                ))}
             </select>
           </div>
           <div>

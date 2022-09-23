@@ -1,0 +1,56 @@
+@import "colours";
+
+.tableClass {
+  background-color: #ffde39;
+  width: 100%;
+  height: 100vh;
+
+  > main {
+    max-width: 900px;
+    background-color: white;
+    margin: auto;
+    height: 100%;
+    padding: 2rem;
+    overflow-x: auto;
+
+    > table {
+      width: 100%;
+      text-align: center;
+
+      tr {
+        background-color: whitesmoke;
+      }
+
+      td,
+      th {
+        padding: 1rem;
+      }
+
+      th {
+        background-color: $dark;
+        color: white;
+      }
+
+      td {
+        color: $dark;
+
+        > img {
+          width: 30px;
+          height: 30px;
+          border-radius: 100%;
+        }
+
+        > a {
+          color: $reddark;
+        }
+
+        > button {
+          border: none;
+          cursor: pointer;
+          margin: 0.25rem;
+          color: $red;
+        }
+      }
+    }
+  }
+}

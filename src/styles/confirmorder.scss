@@ -1,12 +1,12 @@
 @import "colours";
 
-.checkout {
+.confirmOrder {
   background-color: #ffde39;
   width: 100%;
   height: auto;
   > main {
-    height: 100%;
     background-color: white;
+    height: 100%;
     max-width: 900px;
     margin: auto;
     padding: 2rem;
@@ -22,24 +22,14 @@
       align-items: center;
 
       > div {
+        background-color: rgb(233, 233, 233);
+        margin: 1rem;
+        border-radius: 5px;
+        padding: 1rem;
         width: 70%;
         display: flex;
         align-items: center;
         justify-content: space-between;
-
-        > label {
-          white-space: nowrap;
-        }
-        > input,
-        > select {
-          width: 450px;
-          padding: 0.5rem 1rem;
-          outline: none;
-          border: 1px solid rgba(0, 0, 0, 0.172);
-          border-radius: 5px;
-          margin: 1rem;
-          font-size: 1rem;
-        }
       }
       > button {
         background-color: $red;
@@ -61,19 +51,13 @@
 }
 
 @media screen and (max-width: 770px) {
-  .checkout {
-    > main {
-      > form {
-        > div {
-          width: 100%;
-          > input,
-          > select {
-            width: 100%;
-          }
-        }
-        > button {
-          width: 100%;
-        }
+  .confirmOrder {
+    > main > form {
+      > div {
+        width: 100%;
+      }
+      > button {
+        width: 100%;
       }
     }
   }
