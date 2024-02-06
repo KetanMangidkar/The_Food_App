@@ -5,9 +5,9 @@ const Contact = () => {
   return (
     <section className="contact">
       <motion.form
-        initial={{ y: "-100%", opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.5 }}
+        initial={{ x: "200%", opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ delay: 1 }}
       >
         <h2>Connect On</h2>
         <input type="tect" placeholder="Name" />

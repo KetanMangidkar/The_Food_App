@@ -1,4 +1,8 @@
 import { Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loadUser } from "./redux/actions/user";
+import toast, { Toaster } from "react-hot-toast";
 
 import Home from "./components/Home/Home";
 import Footer from "./components/Layouts/Footer";
@@ -36,9 +40,33 @@ import "./styles/dashboard.scss";
 import "./styles/about.scss";
 
 function App() {
+  const dispatch = useDispatch();
+  const { error, messege, user, isAuthenticated } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch({
+        type: "clearError",
+      });
+    }
+    if (messege) {
+      toast.success(messege);
+      dispatch({
+        type: "clearMessege",
+      });
+    }
+  }, [dispatch, error, messege]);
+
   return (
     <div className="App">
-      <Navbar isAuthenticated={true}></Navbar>
+      <Navbar isAuthenticated={isAuthenticated}></Navbar>
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/contact" element={<Contact></Contact>}></Route>
@@ -65,7 +93,8 @@ function App() {
         <Route path="/about" element={<About></About>}></Route>
         <Route path="*" element={<Error></Error>}></Route>
       </Routes>
-      <Footer></Footer>
+      <Footer />
+      <Toaster />
     </div>
   );
 }
