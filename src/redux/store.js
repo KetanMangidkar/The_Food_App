@@ -8,4 +8,4 @@ const store = configureStore({
 });
 export default store;
 
-export const server = "https://mbaburgerwala.herokuapp.com";
+export const server = "https://thefoodapplication.onrender.com/api/v1";

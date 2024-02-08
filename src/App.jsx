@@ -47,7 +47,7 @@ function App() {
 
   useEffect(() => {
     dispatch(loadUser());
-  }, [dispatch]);
+  }, [dispatch]);  
 
   useEffect(() => {
     if (error) {
@@ -85,7 +85,7 @@ function App() {
         <Route path="/orders" element={<Orderpage></Orderpage>}></Route>
         <Route path="/order/:id" element={<OrderDetail></OrderDetail>}></Route>
         <Route
-          path="/admin/dashboard"
+          path="/admin/dashboard" 
           element={<Dashboard></Dashboard>}
         ></Route>
         <Route path="/admin/users" element={<Users></Users>}></Route>

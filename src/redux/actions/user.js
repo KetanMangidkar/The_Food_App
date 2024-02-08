@@ -1,6 +1,7 @@
 import axios from "axios";
 import { server } from "../store";
 
+// action for the login user
 export const loadUser = () => async (dispatch) => {
   try {
     dispatch({
@@ -15,10 +16,31 @@ export const loadUser = () => async (dispatch) => {
       type: "loadUserSucess",
       payload: data.user,
     });
-    
   } catch (error) {
     dispatch({
       type: "loadUserFailed",
+      payload: error.response.data.messege,
+    });
+  }
+};
+
+// action for the logout user
+export const logout = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: "logoutRequest",
+    });
+
+    await axios.get(`${server}/logout`, {
+      withCredentials: true,
+    });
+
+    dispatch({
+      type: "logoutSucess",
+    });
+  } catch (error) {
+    dispatch({
+      type: "logoutFailed",
       payload: error.response.data.messege,
     });
   }

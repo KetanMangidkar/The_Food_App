@@ -2,8 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import me from "../../reqFiles/me.jpeg";
 import { MdDashboardCustomize } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/actions/user";
 
 const UserProfile = () => {
+  const dispatch = useDispatch();
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
+
   return (
     <section className="userProfile">
       <main>
@@ -24,7 +32,7 @@ const UserProfile = () => {
         <div>
           <Link to="/orders">My Order</Link>
         </div>
-        <button>Logout</button>
+        <button onClick={logoutHandler}>Logout</button>
       </main>
     </section>
   );

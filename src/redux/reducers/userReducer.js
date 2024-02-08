@@ -17,9 +17,27 @@ export const authReducer = createReducer(
     },
 
     // if user login failed
-    loadUserFailed: (state, action) => { 
+    loadUserFailed: (state, action) => {
       state.loading = false;
-      // state.isAuthenticated = false;
+      state.isAuthenticated = false;
+      state.error = action.payload;
+    },
+
+    //  for load a logout the user
+    logoutRequest: (state) => {
+      state.loading = true;
+    },
+
+    // if user logout sucessfully
+    logoutSucess: (state ) => {
+      state.loading = false;
+      state.isAuthenticated = false;
+      state.user = null;
+    },
+
+    // if user logout failed
+    logoutFailed: (state, action) => {
+      state.loading = false;
       state.isAuthenticated = true;
       state.error = action.payload;
     },
