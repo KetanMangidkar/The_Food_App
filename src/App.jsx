@@ -38,6 +38,8 @@ import "./styles/table.scss";
 import "./styles/orderdetail.scss";
 import "./styles/dashboard.scss";
 import "./styles/about.scss";
+import { ProtectedRoute } from "protected-route-react";
+// import ProtectedRoute from "protected-route-react/dist/lib/ProtectedRoute";
 
 function App() {
   const dispatch = useDispatch();
@@ -47,7 +49,7 @@ function App() {
 
   useEffect(() => {
     dispatch(loadUser());
-  }, [dispatch]);  
+  }, [dispatch]);
 
   useEffect(() => {
     if (error) {
@@ -66,32 +68,47 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar isAuthenticated={isAuthenticated}></Navbar>
+      <Navbar isAuthenticated={isAuthenticated} />
       <Routes>
-        <Route path="/" element={<Home></Home>}></Route>
-        <Route path="/contact" element={<Contact></Contact>}></Route>
-        <Route path="/cart" element={<Cart></Cart>}></Route>
-        <Route path="/checkout" element={<Checkout></Checkout>}></Route>
+        <Route path="/" element={<Home />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/paymentdone" element={<PaymentDone />} />
+
         <Route
-          path="/confirmorder"
-          element={<ConfirmOrder></ConfirmOrder>}
-        ></Route>
+          path="/login"
+          element={
+            <ProtectedRoute isAuthenticated={!isAuthenticated} redirect="/user">
+              <Login />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+          <Route path="/user" element={<UserProfile />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/confirmorder" element={<ConfirmOrder />} />
+          <Route path="/orders" element={<Orderpage />} />
+          <Route path="/order/:id" element={<OrderDetail />} />
+        </Route>
+
         <Route
-          path="/paymentdone"
-          element={<PaymentDone></PaymentDone>}
-        ></Route>
-        <Route path="/login" element={<Login></Login>}></Route>
-        <Route path="/user" element={<UserProfile></UserProfile>}></Route>
-        <Route path="/orders" element={<Orderpage></Orderpage>}></Route>
-        <Route path="/order/:id" element={<OrderDetail></OrderDetail>}></Route>
-        <Route
-          path="/admin/dashboard" 
-          element={<Dashboard></Dashboard>}
-        ></Route>
-        <Route path="/admin/users" element={<Users></Users>}></Route>
-        <Route path="/admin/orders" element={<Allorders></Allorders>}></Route>
-        <Route path="/about" element={<About></About>}></Route>
-        <Route path="*" element={<Error></Error>}></Route>
+          element={
+            <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+              adminRoute={true}
+              isAdmin={user && user.role === "admin"}
+              redirectAdmin="/user"
+            />
+          }
+        >
+          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/users" element={<Users />} />
+          <Route path="/admin/orders" element={<Allorders />} />
+        </Route>
+
+        <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
       <Toaster />
