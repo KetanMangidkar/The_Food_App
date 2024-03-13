@@ -29,9 +29,10 @@ export const authReducer = createReducer(
     },
 
     // if user logout sucessfully
-    logoutSucess: (state ) => {
+    logoutSucess: (state, action) => {
       state.loading = false;
       state.isAuthenticated = false;
+      state.message = action.payload;
       state.user = null;
     },
 

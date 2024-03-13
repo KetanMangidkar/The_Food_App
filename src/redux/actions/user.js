@@ -31,12 +31,13 @@ export const logout = () => async (dispatch) => {
       type: "logoutRequest",
     });
 
-    await axios.get(`${server}/logout`, {
+    const {data} =await axios.get(`${server}/logout`, {
       withCredentials: true,
     });
 
     dispatch({
       type: "logoutSucess",
+      payload: data.message,
     });
   } catch (error) {
     dispatch({
