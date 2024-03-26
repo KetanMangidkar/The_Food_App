@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import maggie from "../../reqFiles/maggie.jpeg";
@@ -82,6 +82,19 @@ const Cart = () => {
         break;
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(orderItems));
+    localStorage.setItem(
+      "cartPrices",
+      JSON.stringify({
+        subTotal,
+        tax,
+        shippingCharges,
+        total,
+      })
+    );
+  }, [orderItems, subTotal, tax, shippingCharges, total]);
 
   return (
     <section className="cart">

@@ -1,10 +1,20 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createOrder } from "../../redux/actions/order";
+import { createOrder, paymentVerification } from "../../redux/actions/order";
+import { server } from "../../redux/store";
 
 const ConfirmOrder = () => {
+  // shippingInfo,
+  //   orderItems,
+  //   paymentMethod,
+  //   itemsPrice,
+  //   taxPrice,
+  //   shippingCharges,
+  //   totalAmount,
+
   const [paymentMethod, setPaymentMethod] = useState("");
   const [disableBtn, setDisableBtn] = useState(false);
 
@@ -32,6 +42,56 @@ const ConfirmOrder = () => {
         )
       );
     } else {
+      // createorderonline
+
+      const {
+        data: { order, orderOptions },
+      } = await axios.post(
+        `${server}/createorderonline`,
+        {
+          shippingInfo,
+          orderItems: cartItems,
+          paymentMethod,
+          itemsPrice: subTotal,
+          taxPrice: tax,
+          shippingCharges,
+          totalAmount: total,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+
+      const options = {
+        key: "rzp_test_vbDU2SfXF55L10",
+        amount: order.amount,
+        currency: "INR",
+        name: "The Food App",
+        description: "The Food App",
+        order_id: order.id,
+        handler: function (response) {
+          const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
+            response;
+
+          dispatch(
+            paymentVerification(
+              razorpay_payment_id,
+              razorpay_order_id,
+              razorpay_signature,
+              orderOptions
+            )
+          );
+        },
+
+        theme: {
+          color: "#ffde39",
+        },
+      };
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
     }
   };
 
