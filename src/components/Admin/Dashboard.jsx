@@ -35,8 +35,8 @@ const Dashboard = () => {
       {
         label: "# of orders",
         data: ordersCount
-        ? [ordersCount.preparing, ordersCount.shipped, ordersCount.delivered]
-        : [0, 0, 0],
+          ? [ordersCount.preparing, ordersCount.shipped, ordersCount.delivered]
+          : [0, 0, 0],
         backgroundColor: [
           "rgba(159,63, 176,0.1)",
           "rgba(78,63,176,0.2)",
