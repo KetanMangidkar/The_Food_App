@@ -11,11 +11,11 @@ const initialState = {
         },
         vegCheeseBurger: {
           quantity: 0,
-          price: 500,
+          price: 300,
         },
         burgerWithFries: {
           quantity: 0,
-          price: 1800,
+          price: 600,
         },
       },
   subTotal: localStorage.getItem("cartPrices")
@@ -77,11 +77,11 @@ const cartReducer = createReducer(initialState, {
       },
       vegCheeseBurger: {
         quantity: 0,
-        price: 500,
+        price: 300,
       },
       burgerWithFries: {
         quantity: 0,
-        price: 1800,
+        price: 600,
       },
     };
 
