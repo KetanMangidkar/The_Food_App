@@ -124,7 +124,7 @@ const ConfirmOrder = () => {
               required
             />
           </div>
-          <div>
+          <div disabled>
             <label>Online</label>
             <input
               type="radio"
@@ -132,6 +132,7 @@ const ConfirmOrder = () => {
               id=""
               onChange={() => setPaymentMethod("Online")}
               required
+              disabled
             />
           </div>
           <button disabled={disableBtn} type="Submit">
